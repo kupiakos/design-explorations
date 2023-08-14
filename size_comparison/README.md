@@ -13,7 +13,16 @@ libraries other than the libraries built in to Rust's toolchain (e.g. libcore).
 The application blinks an LED until a button is pressed; while the button is
 held down the blinking stops.
 
+Build with `./build.sh`
+
 ## Results
+
+### Update by @kupiakos
+
+Updated to run on a modern nightly with stable asm.
+It somewhat more closely resembles Tock 2 syscalls, though not completely.
+
+TODO: determine why the sizes are different, reproduce the same methodology as @jrvanwhy.
 
 ### Summary
 

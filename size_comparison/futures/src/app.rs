@@ -67,12 +67,14 @@ impl AppFuture {
         }
     }
 
+    #[cfg_attr(futures_noinline, inline(never))]
     fn alarm_fired(&mut self) {
         if crate::gpio::read_button() { return; }
         self.light = !self.light;
         crate::gpio::update(self.light);
     }
 
+    #[cfg_attr(futures_noinline, inline(never))]
     fn button_event(&mut self) {
         if crate::gpio::read_button() {
             crate::gpio::update(false);
@@ -87,6 +89,7 @@ impl AppFuture {
 impl Future for AppFuture {
     type Output = Empty;
 
+    #[cfg_attr(futures_noinline, inline(never))]
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context) -> Poll<Empty> {
         APP.waker.set(Some(cx.waker().clone()));
         if APP.poll_alarm.take() {

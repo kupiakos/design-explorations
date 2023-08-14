@@ -1,5 +1,6 @@
-/// Tock OS runtime library. Sets up the stack and data regions before calling
-/// into main().
+//! Tock OS runtime library. Sets up the stack and data regions before calling
+//! into main().
+#![allow(named_asm_labels)]
 
 // start and rust_start are the first two procedures executed when a Tock
 // application starts. start is invoked directly by the Tock kernel; it performs
@@ -45,6 +46,7 @@
 //     | (grows down) |
 //     +--------------+ <- memory_start
 
+
 #[no_mangle]
 #[naked]
 #[link_section = ".start"]
@@ -55,7 +57,7 @@ unsafe extern "C" fn start(
     _memory_len: usize,
     _app_break: usize,
 ) -> ! {
-    asm!("
+    core::arch::asm!("
         // An offset between the location the program is linked at and its
         // actual location in flash would cause references to .rodata to point
         // to the wrong data. To mitigate this, this section checks that .start
@@ -90,16 +92,9 @@ unsafe extern "C" fn start(
         // in an infinite loop.
         .Lyield_loop:
         svc 0
-        b .Lyield_loop"
-        :                                                // No output operands
-        :                                                // Input operands
-        : "r0", "r1", "r2", "r3", "r12", "cc", "memory"  // Clobbers
-        : "volatile"                                     // Options
-    );
-
-    // start() should not return, but asm!() returns (). unreachable_unchecked()
-    // seems to be the safest way to get the ! return type we need.
-    core::hint::unreachable_unchecked()
+        b .Lyield_loop",
+        options(noreturn, raw),
+    )
 }
 
 /// Rust setup, called by start. Uses the extern "C" calling convention so that
@@ -146,7 +141,7 @@ struct RtHeader {
 /// corresponds to those symbols. It exposes utility functions that return the
 /// symbol's location in the types that rust_start() needs.
 #[repr(C)]
-struct EmptySymbol {}
+struct EmptySymbol;
 
 impl EmptySymbol {
     fn as_ptr_u8(&self) -> *const u8 {

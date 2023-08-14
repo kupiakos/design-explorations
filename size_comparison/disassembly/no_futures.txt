@@ -1,272 +1,344 @@
 
-target/thumbv7m-none-eabi/release/no_futures:     file format elf32-littlearm
-
+target/thumbv7m-none-eabi/release/no_futures:	file format elf32-littlearm
 
 Disassembly of section .text:
 
-0007604c <start>:
-   7604c:	f1af 0004 	sub.w	r0, pc, #4
-   76050:	490a      	ldr	r1, [pc, #40]	; (7607c <start+0x30>)
-   76052:	4288      	cmp	r0, r1
-   76054:	d007      	beq.n	76066 <start+0x1a>
-   76056:	f240 0008 	movw	r0, #8
-   7605a:	f240 0101 	movw	r1, #1
-   7605e:	f240 0202 	movw	r2, #2
-   76062:	df02      	svc	2
-   76064:	e007      	b.n	76076 <start+0x2a>
-   76066:	f240 0000 	movw	r0, #0
-   7606a:	4905      	ldr	r1, [pc, #20]	; (76080 <start+0x34>)
-   7606c:	df04      	svc	4
-   7606e:	f8df d014 	ldr.w	sp, [pc, #20]	; 76084 <start+0x38>
-   76072:	f000 f83b 	bl	760ec <rust_start>
-   76076:	df00      	svc	0
-   76078:	e7fd      	b.n	76076 <start+0x2a>
-   7607a:	defe      	udf	#254	; 0xfe
-   7607c:	0007604c 	.word	0x0007604c
-   76080:	00014808 	.word	0x00014808
-   76084:	00014800 	.word	0x00014800
+0007604c <.text>:
+   7604c: af f1 04 00  	sub.w	r0, pc, #4
+   76050: 0a 49        	ldr	r1, [pc, #40]           @ 0x7607c <.text+0x30>
+   76052: 88 42        	cmp	r0, r1
+   76054: 07 d0        	beq	0x76066 <.text+0x1a>    @ imm = #14
+   76056: 40 f2 08 00  	movw	r0, #8
+   7605a: 40 f2 01 01  	movw	r1, #1
+   7605e: 40 f2 02 02  	movw	r2, #2
+   76062: 02 df        	svc	#2
+   76064: 07 e0        	b	0x76076 <.text+0x2a>    @ imm = #14
+   76066: 40 f2 00 00  	movw	r0, #0
+   7606a: 05 49        	ldr	r1, [pc, #20]           @ 0x76080 <.text+0x34>
+   7606c: 04 df        	svc	#4
+   7606e: df f8 14 d0  	ldr.w	sp, [pc, #20]           @ 0x76084 <.text+0x38>
+   76072: 00 f0 9f f8  	bl	0x761b4                 @ imm = #318
+   76076: 00 df        	svc	#0
+   76078: fd e7        	b	0x76076 <.text+0x2a>    @ imm = #-6
+   7607a: fe de        	trap
+   7607c: 4c 60        	str	r4, [r1, #4]
+   7607e: 07 00        	movs	r7, r0
+   76080: 00 48        	ldr	r0, [pc, #0]            @ 0x76084 <.text+0x38>
+   76082: 01 00        	movs	r1, r0
+   76084: 00 48        	ldr	r0, [pc, #0]            @ 0x76088
+   76086: 01 00        	movs	r1, r0
 
-00076088 <_ZN10no_futures5alarm9set_delay17heaa211f271bc77c3E>:
-   76088:	b5b0      	push	{r4, r5, r7, lr}
-   7608a:	480c      	ldr	r0, [pc, #48]	; (760bc <_ZN10no_futures5alarm9set_delay17heaa211f271bc77c3E+0x34>)
-   7608c:	2105      	movs	r1, #5
-   7608e:	6840      	ldr	r0, [r0, #4]
-   76090:	fbb0 f5f1 	udiv	r5, r0, r1
-   76094:	2000      	movs	r0, #0
-   76096:	2102      	movs	r1, #2
-   76098:	2200      	movs	r2, #0
-   7609a:	2300      	movs	r3, #0
-   7609c:	df02      	svc	2
-   7609e:	1944      	adds	r4, r0, r5
-   760a0:	2104      	movs	r1, #4
-   760a2:	2000      	movs	r0, #0
-   760a4:	2300      	movs	r3, #0
-   760a6:	4622      	mov	r2, r4
-   760a8:	df02      	svc	2
-   760aa:	2102      	movs	r1, #2
-   760ac:	2000      	movs	r0, #0
-   760ae:	2200      	movs	r2, #0
-   760b0:	2300      	movs	r3, #0
-   760b2:	df02      	svc	2
-   760b4:	1a20      	subs	r0, r4, r0
-   760b6:	42a8      	cmp	r0, r5
-   760b8:	d8ec      	bhi.n	76094 <_ZN10no_futures5alarm9set_delay17heaa211f271bc77c3E+0xc>
-   760ba:	bdb0      	pop	{r4, r5, r7, pc}
-   760bc:	00014800 	.word	0x00014800
+Disassembly of section .text._ZN10no_futures5alarm9set_delay17h3553585c75def5d6E:
 
-000760c0 <_ZN10no_futures5alarm9interrupt17hc7d1a385a8f707f9E>:
-   760c0:	b580      	push	{r7, lr}
-   760c2:	f7ff ffe1 	bl	76088 <_ZN10no_futures5alarm9set_delay17heaa211f271bc77c3E>
-   760c6:	4808      	ldr	r0, [pc, #32]	; (760e8 <_ZN10no_futures5alarm9interrupt17hc7d1a385a8f707f9E+0x28>)
-   760c8:	7801      	ldrb	r1, [r0, #0]
-   760ca:	b101      	cbz	r1, 760ce <_ZN10no_futures5alarm9interrupt17hc7d1a385a8f707f9E+0xe>
-   760cc:	bd80      	pop	{r7, pc}
-   760ce:	7842      	ldrb	r2, [r0, #1]
-   760d0:	2300      	movs	r3, #0
-   760d2:	f082 0101 	eor.w	r1, r2, #1
-   760d6:	7041      	strb	r1, [r0, #1]
-   760d8:	2103      	movs	r1, #3
-   760da:	2004      	movs	r0, #4
-   760dc:	2a00      	cmp	r2, #0
-   760de:	bf08      	it	eq
-   760e0:	2102      	moveq	r1, #2
-   760e2:	2200      	movs	r2, #0
-   760e4:	df02      	svc	2
-   760e6:	bd80      	pop	{r7, pc}
-   760e8:	00014800 	.word	0x00014800
+00076088 <.text._ZN10no_futures5alarm9set_delay17h3553585c75def5d6E>:
+   76088: b0 b5        	push	{r4, r5, r7, lr}
+   7608a: 02 af        	add	r7, sp, #8
+   7608c: 0c 48        	ldr	r0, [pc, #48]           @ 0x760c0 <.text._ZN10no_futures5alarm9set_delay17h3553585c75def5d6E+0x38>
+   7608e: 05 21        	movs	r1, #5
+   76090: 00 68        	ldr	r0, [r0]
+   76092: b0 fb f1 f5  	udiv	r5, r0, r1
+   76096: 00 20        	movs	r0, #0
+   76098: 02 21        	movs	r1, #2
+   7609a: 00 22        	movs	r2, #0
+   7609c: 00 23        	movs	r3, #0
+   7609e: 02 df        	svc	#2
+   760a0: 44 19        	adds	r4, r0, r5
+   760a2: 00 20        	movs	r0, #0
+   760a4: 04 21        	movs	r1, #4
+   760a6: 22 46        	mov	r2, r4
+   760a8: 00 23        	movs	r3, #0
+   760aa: 02 df        	svc	#2
+   760ac: 00 20        	movs	r0, #0
+   760ae: 02 21        	movs	r1, #2
+   760b0: 00 22        	movs	r2, #0
+   760b2: 00 23        	movs	r3, #0
+   760b4: 02 df        	svc	#2
+   760b6: 20 1a        	subs	r0, r4, r0
+   760b8: a8 42        	cmp	r0, r5
+   760ba: ec d8        	bhi	0x76096 <.text._ZN10no_futures5alarm9set_delay17h3553585c75def5d6E+0xe> @ imm = #-40
+   760bc: b0 bd        	pop	{r4, r5, r7, pc}
+   760be: 00 bf        	nop
+   760c0: 00 48        	ldr	r0, [pc, #0]            @ 0x760c4
+   760c2: 01 00        	movs	r1, r0
 
-000760ec <rust_start>:
-   760ec:	4c06      	ldr	r4, [pc, #24]	; (76108 <rust_start+0x1c>)
-   760ee:	4807      	ldr	r0, [pc, #28]	; (7610c <rust_start+0x20>)
-   760f0:	4907      	ldr	r1, [pc, #28]	; (76110 <rust_start+0x24>)
-   760f2:	6822      	ldr	r2, [r4, #0]
-   760f4:	f000 f864 	bl	761c0 <__aeabi_memcpy>
-   760f8:	e9d4 0101 	ldrd	r0, r1, [r4, #4]
-   760fc:	f000 f8be 	bl	7627c <__aeabi_memclr>
-   76100:	f000 f824 	bl	7614c <main>
-   76104:	defe      	udf	#254	; 0xfe
-   76106:	bf00      	nop
-   76108:	00076040 	.word	0x00076040
-   7610c:	00014800 	.word	0x00014800
-   76110:	00076284 	.word	0x00076284
+Disassembly of section .text._ZN10no_futures5alarm9interrupt17hcddea161b96c2d14E:
 
-00076114 <_ZN10no_futures4gpio9interrupt17hfb9f728664c9a0aaE>:
-   76114:	b5b0      	push	{r4, r5, r7, lr}
-   76116:	460c      	mov	r4, r1
-   76118:	2901      	cmp	r1, #1
-   7611a:	d106      	bne.n	7612a <_ZN10no_futures4gpio9interrupt17hfb9f728664c9a0aaE+0x16>
-   7611c:	2500      	movs	r5, #0
-   7611e:	2004      	movs	r0, #4
-   76120:	2103      	movs	r1, #3
-   76122:	2200      	movs	r2, #0
-   76124:	2300      	movs	r3, #0
-   76126:	df02      	svc	2
-   76128:	e005      	b.n	76136 <_ZN10no_futures4gpio9interrupt17hfb9f728664c9a0aaE+0x22>
-   7612a:	2004      	movs	r0, #4
-   7612c:	2102      	movs	r1, #2
-   7612e:	2200      	movs	r2, #0
-   76130:	2300      	movs	r3, #0
-   76132:	df02      	svc	2
-   76134:	2501      	movs	r5, #1
-   76136:	1e61      	subs	r1, r4, #1
-   76138:	4803      	ldr	r0, [pc, #12]	; (76148 <_ZN10no_futures4gpio9interrupt17hfb9f728664c9a0aaE+0x34>)
-   7613a:	fab1 f181 	clz	r1, r1
-   7613e:	0949      	lsrs	r1, r1, #5
-   76140:	7045      	strb	r5, [r0, #1]
-   76142:	7001      	strb	r1, [r0, #0]
-   76144:	bdb0      	pop	{r4, r5, r7, pc}
-   76146:	bf00      	nop
-   76148:	00014800 	.word	0x00014800
+000760c4 <.text._ZN10no_futures5alarm9interrupt17hcddea161b96c2d14E>:
+   760c4: 80 b5        	push	{r7, lr}
+   760c6: 6f 46        	mov	r7, sp
+   760c8: ff f7 de ff  	bl	0x76088 <.text._ZN10no_futures5alarm9set_delay17h3553585c75def5d6E> @ imm = #-68
+   760cc: 08 48        	ldr	r0, [pc, #32]           @ 0x760f0 <.text._ZN10no_futures5alarm9interrupt17hcddea161b96c2d14E+0x2c>
+   760ce: 01 78        	ldrb	r1, [r0]
+   760d0: 01 b1        	cbz	r1, 0x760d4 <.text._ZN10no_futures5alarm9interrupt17hcddea161b96c2d14E+0x10> @ imm = #0
+   760d2: 80 bd        	pop	{r7, pc}
+   760d4: 42 78        	ldrb	r2, [r0, #1]
+   760d6: 82 f0 01 01  	eor	r1, r2, #1
+   760da: 41 70        	strb	r1, [r0, #1]
+   760dc: 03 21        	movs	r1, #3
+   760de: 00 2a        	cmp	r2, #0
+   760e0: 08 bf        	it	eq
+   760e2: 02 21        	moveq	r1, #2
+   760e4: 04 20        	movs	r0, #4
+   760e6: 00 22        	movs	r2, #0
+   760e8: 00 23        	movs	r3, #0
+   760ea: 02 df        	svc	#2
+   760ec: 80 bd        	pop	{r7, pc}
+   760ee: 00 bf        	nop
+   760f0: 04 48        	ldr	r0, [pc, #16]           @ 0x76104
+   760f2: 01 00        	movs	r1, r0
 
-0007614c <main>:
-   7614c:	4c19      	ldr	r4, [pc, #100]	; (761b4 <main+0x68>)
-   7614e:	2000      	movs	r0, #0
-   76150:	2101      	movs	r1, #1
-   76152:	2200      	movs	r2, #0
-   76154:	2300      	movs	r3, #0
-   76156:	df02      	svc	2
-   76158:	4a17      	ldr	r2, [pc, #92]	; (761b8 <main+0x6c>)
-   7615a:	6060      	str	r0, [r4, #4]
-   7615c:	2000      	movs	r0, #0
-   7615e:	2100      	movs	r1, #0
-   76160:	2300      	movs	r3, #0
-   76162:	df01      	svc	1
-   76164:	2101      	movs	r1, #1
-   76166:	2200      	movs	r2, #0
-   76168:	2004      	movs	r0, #4
-   7616a:	2300      	movs	r3, #0
-   7616c:	df02      	svc	2
-   7616e:	2105      	movs	r1, #5
-   76170:	2201      	movs	r2, #1
-   76172:	2004      	movs	r0, #4
-   76174:	2300      	movs	r3, #0
-   76176:	df02      	svc	2
-   76178:	4a10      	ldr	r2, [pc, #64]	; (761bc <main+0x70>)
-   7617a:	2100      	movs	r1, #0
-   7617c:	2004      	movs	r0, #4
-   7617e:	2300      	movs	r3, #0
-   76180:	df01      	svc	1
-   76182:	2107      	movs	r1, #7
-   76184:	2201      	movs	r2, #1
-   76186:	2004      	movs	r0, #4
-   76188:	2300      	movs	r3, #0
-   7618a:	df02      	svc	2
-   7618c:	2103      	movs	r1, #3
-   7618e:	2200      	movs	r2, #0
-   76190:	2004      	movs	r0, #4
-   76192:	2300      	movs	r3, #0
-   76194:	df02      	svc	2
-   76196:	2106      	movs	r1, #6
-   76198:	2201      	movs	r2, #1
-   7619a:	2004      	movs	r0, #4
-   7619c:	2300      	movs	r3, #0
-   7619e:	df02      	svc	2
-   761a0:	3801      	subs	r0, #1
-   761a2:	fab0 f080 	clz	r0, r0
-   761a6:	0940      	lsrs	r0, r0, #5
-   761a8:	7020      	strb	r0, [r4, #0]
-   761aa:	f7ff ff6d 	bl	76088 <_ZN10no_futures5alarm9set_delay17heaa211f271bc77c3E>
-   761ae:	df00      	svc	0
-   761b0:	e7fd      	b.n	761ae <main+0x62>
-   761b2:	bf00      	nop
-   761b4:	00014800 	.word	0x00014800
-   761b8:	000760c1 	.word	0x000760c1
-   761bc:	00076115 	.word	0x00076115
+Disassembly of section .text._ZN10no_futures4gpio9interrupt17h5b4c60b6f7bdf21eE:
 
-000761c0 <__aeabi_memcpy>:
-   761c0:	b5f0      	push	{r4, r5, r6, r7, lr}
-   761c2:	b382      	cbz	r2, 76226 <__aeabi_memcpy+0x66>
-   761c4:	1e53      	subs	r3, r2, #1
-   761c6:	f002 0c03 	and.w	ip, r2, #3
-   761ca:	2b03      	cmp	r3, #3
-   761cc:	d204      	bcs.n	761d8 <__aeabi_memcpy+0x18>
-   761ce:	2200      	movs	r2, #0
-   761d0:	f1bc 0f00 	cmp.w	ip, #0
-   761d4:	d119      	bne.n	7620a <__aeabi_memcpy+0x4a>
-   761d6:	e026      	b.n	76226 <__aeabi_memcpy+0x66>
-   761d8:	ebac 0e02 	sub.w	lr, ip, r2
-   761dc:	1c4b      	adds	r3, r1, #1
-   761de:	1c44      	adds	r4, r0, #1
-   761e0:	f06f 0203 	mvn.w	r2, #3
-   761e4:	189e      	adds	r6, r3, r2
-   761e6:	18a5      	adds	r5, r4, r2
-   761e8:	3204      	adds	r2, #4
-   761ea:	78f7      	ldrb	r7, [r6, #3]
-   761ec:	70ef      	strb	r7, [r5, #3]
-   761ee:	7937      	ldrb	r7, [r6, #4]
-   761f0:	712f      	strb	r7, [r5, #4]
-   761f2:	7977      	ldrb	r7, [r6, #5]
-   761f4:	716f      	strb	r7, [r5, #5]
-   761f6:	79b6      	ldrb	r6, [r6, #6]
-   761f8:	71ae      	strb	r6, [r5, #6]
-   761fa:	eb0e 0502 	add.w	r5, lr, r2
-   761fe:	3504      	adds	r5, #4
-   76200:	d1f0      	bne.n	761e4 <__aeabi_memcpy+0x24>
-   76202:	3204      	adds	r2, #4
-   76204:	f1bc 0f00 	cmp.w	ip, #0
-   76208:	d00d      	beq.n	76226 <__aeabi_memcpy+0x66>
-   7620a:	5c8b      	ldrb	r3, [r1, r2]
-   7620c:	f1bc 0f01 	cmp.w	ip, #1
-   76210:	5483      	strb	r3, [r0, r2]
-   76212:	d008      	beq.n	76226 <__aeabi_memcpy+0x66>
-   76214:	1c53      	adds	r3, r2, #1
-   76216:	f1bc 0f02 	cmp.w	ip, #2
-   7621a:	5ccf      	ldrb	r7, [r1, r3]
-   7621c:	54c7      	strb	r7, [r0, r3]
-   7621e:	d002      	beq.n	76226 <__aeabi_memcpy+0x66>
-   76220:	3202      	adds	r2, #2
-   76222:	5c89      	ldrb	r1, [r1, r2]
-   76224:	5481      	strb	r1, [r0, r2]
-   76226:	bdf0      	pop	{r4, r5, r6, r7, pc}
+000760f4 <.text._ZN10no_futures4gpio9interrupt17h5b4c60b6f7bdf21eE>:
+   760f4: b0 b5        	push	{r4, r5, r7, lr}
+   760f6: 02 af        	add	r7, sp, #8
+   760f8: 0c 46        	mov	r4, r1
+   760fa: 01 29        	cmp	r1, #1
+   760fc: 06 d1        	bne	0x7610c <.text._ZN10no_futures4gpio9interrupt17h5b4c60b6f7bdf21eE+0x18> @ imm = #12
+   760fe: 00 25        	movs	r5, #0
+   76100: 04 20        	movs	r0, #4
+   76102: 03 21        	movs	r1, #3
+   76104: 00 22        	movs	r2, #0
+   76106: 00 23        	movs	r3, #0
+   76108: 02 df        	svc	#2
+   7610a: 05 e0        	b	0x76118 <.text._ZN10no_futures4gpio9interrupt17h5b4c60b6f7bdf21eE+0x24> @ imm = #10
+   7610c: 04 20        	movs	r0, #4
+   7610e: 02 21        	movs	r1, #2
+   76110: 00 22        	movs	r2, #0
+   76112: 00 23        	movs	r3, #0
+   76114: 02 df        	svc	#2
+   76116: 01 25        	movs	r5, #1
+   76118: 61 1e        	subs	r1, r4, #1
+   7611a: 03 48        	ldr	r0, [pc, #12]           @ 0x76128 <.text._ZN10no_futures4gpio9interrupt17h5b4c60b6f7bdf21eE+0x34>
+   7611c: b1 fa 81 f1  	clz	r1, r1
+   76120: 49 09        	lsrs	r1, r1, #5
+   76122: 45 70        	strb	r5, [r0, #1]
+   76124: 01 70        	strb	r1, [r0]
+   76126: b0 bd        	pop	{r4, r5, r7, pc}
+   76128: 04 48        	ldr	r0, [pc, #16]           @ 0x7613c
+   7612a: 01 00        	movs	r1, r0
 
-00076228 <__aeabi_memset>:
-   76228:	b510      	push	{r4, lr}
-   7622a:	2900      	cmp	r1, #0
-   7622c:	bf08      	it	eq
-   7622e:	bd10      	popeq	{r4, pc}
-   76230:	1e4b      	subs	r3, r1, #1
-   76232:	f001 0c03 	and.w	ip, r1, #3
-   76236:	2b03      	cmp	r3, #3
-   76238:	d201      	bcs.n	7623e <__aeabi_memset+0x16>
-   7623a:	2100      	movs	r1, #0
-   7623c:	e00f      	b.n	7625e <__aeabi_memset+0x36>
-   7623e:	ebac 0e01 	sub.w	lr, ip, r1
-   76242:	1c41      	adds	r1, r0, #1
-   76244:	f06f 0303 	mvn.w	r3, #3
-   76248:	18cc      	adds	r4, r1, r3
-   7624a:	3304      	adds	r3, #4
-   7624c:	71a2      	strb	r2, [r4, #6]
-   7624e:	7162      	strb	r2, [r4, #5]
-   76250:	7122      	strb	r2, [r4, #4]
-   76252:	70e2      	strb	r2, [r4, #3]
-   76254:	eb0e 0403 	add.w	r4, lr, r3
-   76258:	3404      	adds	r4, #4
-   7625a:	d1f5      	bne.n	76248 <__aeabi_memset+0x20>
-   7625c:	1d19      	adds	r1, r3, #4
-   7625e:	f1bc 0f00 	cmp.w	ip, #0
-   76262:	bf1c      	itt	ne
-   76264:	5442      	strbne	r2, [r0, r1]
-   76266:	f1bc 0f01 	cmpne.w	ip, #1
-   7626a:	d100      	bne.n	7626e <__aeabi_memset+0x46>
-   7626c:	bd10      	pop	{r4, pc}
-   7626e:	4408      	add	r0, r1
-   76270:	f1bc 0f02 	cmp.w	ip, #2
-   76274:	7042      	strb	r2, [r0, #1]
-   76276:	bf18      	it	ne
-   76278:	7082      	strbne	r2, [r0, #2]
-   7627a:	bd10      	pop	{r4, pc}
+Disassembly of section .text.main:
 
-0007627c <__aeabi_memclr>:
-   7627c:	2200      	movs	r2, #0
-   7627e:	f7ff bfd3 	b.w	76228 <__aeabi_memset>
+0007612c <.text.main>:
+   7612c: 80 b5        	push	{r7, lr}
+   7612e: 6f 46        	mov	r7, sp
+   76130: 00 20        	movs	r0, #0
+   76132: 01 21        	movs	r1, #1
+   76134: 00 22        	movs	r2, #0
+   76136: 00 23        	movs	r3, #0
+   76138: 02 df        	svc	#2
+   7613a: 44 f6 00 01  	movw	r1, #18432
+   7613e: 46 f2 c5 02  	movw	r2, #24773
+   76142: c0 f2 01 01  	movt	r1, #1
+   76146: c0 f2 07 02  	movt	r2, #7
+   7614a: 08 60        	str	r0, [r1]
+   7614c: 00 20        	movs	r0, #0
+   7614e: 00 21        	movs	r1, #0
+   76150: 00 23        	movs	r3, #0
+   76152: 01 df        	svc	#1
+   76154: 04 20        	movs	r0, #4
+   76156: 01 21        	movs	r1, #1
+   76158: 00 22        	movs	r2, #0
+   7615a: 00 23        	movs	r3, #0
+   7615c: 02 df        	svc	#2
+   7615e: 04 20        	movs	r0, #4
+   76160: 05 21        	movs	r1, #5
+   76162: 01 22        	movs	r2, #1
+   76164: 00 23        	movs	r3, #0
+   76166: 02 df        	svc	#2
+   76168: 46 f2 f5 02  	movw	r2, #24821
+   7616c: 04 20        	movs	r0, #4
+   7616e: c0 f2 07 02  	movt	r2, #7
+   76172: 00 21        	movs	r1, #0
+   76174: 00 23        	movs	r3, #0
+   76176: 01 df        	svc	#1
+   76178: 04 20        	movs	r0, #4
+   7617a: 07 21        	movs	r1, #7
+   7617c: 01 22        	movs	r2, #1
+   7617e: 00 23        	movs	r3, #0
+   76180: 02 df        	svc	#2
+   76182: 04 20        	movs	r0, #4
+   76184: 03 21        	movs	r1, #3
+   76186: 00 22        	movs	r2, #0
+   76188: 00 23        	movs	r3, #0
+   7618a: 02 df        	svc	#2
+   7618c: 04 20        	movs	r0, #4
+   7618e: 06 21        	movs	r1, #6
+   76190: 01 22        	movs	r2, #1
+   76192: 00 23        	movs	r3, #0
+   76194: 02 df        	svc	#2
+   76196: 01 38        	subs	r0, #1
+   76198: 44 f6 04 01  	movw	r1, #18436
+   7619c: b0 fa 80 f0  	clz	r0, r0
+   761a0: c0 f2 01 01  	movt	r1, #1
+   761a4: 40 09        	lsrs	r0, r0, #5
+   761a6: 08 70        	strb	r0, [r1]
+   761a8: ff f7 6e ff  	bl	0x76088 <.text._ZN10no_futures5alarm9set_delay17h3553585c75def5d6E> @ imm = #-292
+   761ac: 01 20        	movs	r0, #1
+   761ae: 00 df        	svc	#0
+   761b0: fc e7        	b	0x761ac <.text.main+0x80> @ imm = #-8
 
-Disassembly of section .bss:
+Disassembly of section .text.rust_start:
 
-00014800 <_ZN10no_futures3app3APP17h3c1a979c9ee54937E.0.0>:
-	...
+000761b4 <.text.rust_start>:
+   761b4: 80 b5        	push	{r7, lr}
+   761b6: 6f 46        	mov	r7, sp
+   761b8: 06 4c        	ldr	r4, [pc, #24]           @ 0x761d4 <.text.rust_start+0x20>
+   761ba: 07 48        	ldr	r0, [pc, #28]           @ 0x761d8 <.text.rust_start+0x24>
+   761bc: 07 49        	ldr	r1, [pc, #28]           @ 0x761dc <.text.rust_start+0x28>
+   761be: 22 68        	ldr	r2, [r4]
+   761c0: 00 f0 87 f8  	bl	0x762d2                 @ imm = #270
+   761c4: d4 e9 01 01  	ldrd	r0, r1, [r4, #4]
+   761c8: 00 f0 8d f8  	bl	0x762e6                 @ imm = #282
+   761cc: ff f7 ae ff  	bl	0x7612c <.text.main>    @ imm = #-164
+   761d0: fe de        	trap
+   761d2: 00 bf        	nop
+   761d4: 40 60        	str	r0, [r0, #4]
+   761d6: 07 00        	movs	r7, r0
+   761d8: 00 48        	ldr	r0, [pc, #0]            @ 0x761dc <.text.rust_start+0x28>
+   761da: 01 00        	movs	r1, r0
+   761dc: 00 63        	str	r0, [r0, #48]
+   761de: 07 00        	movs	r7, r0
 
-00014801 <_ZN10no_futures3app3APP17h3c1a979c9ee54937E.0.1>:
-   14801:	0000                                         ...
+Disassembly of section .text._ZN17compiler_builtins3mem6memcpy17hecf398c62bf07f47E:
 
-00014804 <_ZN10no_futures5alarm4FREQ17hdf6c6c5c0587f528E>:
-   14804:	0000 0000                                   ....
+000761e0 <.text._ZN17compiler_builtins3mem6memcpy17hecf398c62bf07f47E>:
+   761e0: f0 b5        	push	{r4, r5, r6, r7, lr}
+   761e2: 03 af        	add	r7, sp, #12
+   761e4: 2d e9 00 07  	push.w	{r8, r9, r10}
+   761e8: 0f 2a        	cmp	r2, #15
+   761ea: 08 d9        	bls	0x761fe <.text._ZN17compiler_builtins3mem6memcpy17hecf398c62bf07f47E+0x1e> @ imm = #16
+   761ec: 00 f0 80 f8  	bl	0x762f0                 @ imm = #256
+   761f0: a6 42        	cmp	r6, r4
+   761f2: 06 d2        	bhs	0x76202 <.text._ZN17compiler_builtins3mem6memcpy17hecf398c62bf07f47E+0x22> @ imm = #12
+   761f4: 13 f8 01 5b  	ldrb	r5, [r3], #1
+   761f8: 06 f8 01 5b  	strb	r5, [r6], #1
+   761fc: f8 e7        	b	0x761f0 <.text._ZN17compiler_builtins3mem6memcpy17hecf398c62bf07f47E+0x10> @ imm = #-16
+   761fe: 03 46        	mov	r3, r0
+   76200: 29 e0        	b	0x76256 <.text._ZN17compiler_builtins3mem6memcpy17hecf398c62bf07f47E+0x76> @ imm = #82
+   76202: a2 eb 08 0c  	sub.w	r12, r2, r8
+   76206: 88 44        	add	r8, r1
+   76208: 2c f0 03 0e  	bic	lr, r12, #3
+   7620c: 04 eb 0e 03  	add.w	r3, r4, lr
+   76210: 5f ea 88 71  	lsls.w	r1, r8, #30
+   76214: 15 d0        	beq	0x76242 <.text._ZN17compiler_builtins3mem6memcpy17hecf398c62bf07f47E+0x62> @ imm = #42
+   76216: 18 21        	movs	r1, #24
+   76218: 01 ea c8 09  	and.w	r9, r1, r8, lsl #3
+   7621c: 00 21        	movs	r1, #0
+   7621e: a1 eb c8 01  	sub.w	r1, r1, r8, lsl #3
+   76222: 01 f0 18 0a  	and	r10, r1, #24
+   76226: 28 f0 03 01  	bic	r1, r8, #3
+   7622a: 0d 1d        	adds	r5, r1, #4
+   7622c: 09 68        	ldr	r1, [r1]
+   7622e: 9c 42        	cmp	r4, r3
+   76230: 0d d2        	bhs	0x7624e <.text._ZN17compiler_builtins3mem6memcpy17hecf398c62bf07f47E+0x6e> @ imm = #26
+   76232: 21 fa 09 f6  	lsr.w	r6, r1, r9
+   76236: 02 cd        	ldm	r5!, {r1}
+   76238: 01 fa 0a f2  	lsl.w	r2, r1, r10
+   7623c: 32 43        	orrs	r2, r6
+   7623e: 04 c4        	stm	r4!, {r2}
+   76240: f5 e7        	b	0x7622e <.text._ZN17compiler_builtins3mem6memcpy17hecf398c62bf07f47E+0x4e> @ imm = #-22
+   76242: 41 46        	mov	r1, r8
+   76244: 9c 42        	cmp	r4, r3
+   76246: 02 d2        	bhs	0x7624e <.text._ZN17compiler_builtins3mem6memcpy17hecf398c62bf07f47E+0x6e> @ imm = #4
+   76248: 04 c9        	ldm	r1!, {r2}
+   7624a: 04 c4        	stm	r4!, {r2}
+   7624c: fa e7        	b	0x76244 <.text._ZN17compiler_builtins3mem6memcpy17hecf398c62bf07f47E+0x64> @ imm = #-12
+   7624e: 08 eb 0e 01  	add.w	r1, r8, lr
+   76252: 0c f0 03 02  	and	r2, r12, #3
+   76256: 1a 44        	add	r2, r3
+   76258: 93 42        	cmp	r3, r2
+   7625a: 04 d2        	bhs	0x76266 <.text._ZN17compiler_builtins3mem6memcpy17hecf398c62bf07f47E+0x86> @ imm = #8
+   7625c: 11 f8 01 4b  	ldrb	r4, [r1], #1
+   76260: 03 f8 01 4b  	strb	r4, [r3], #1
+   76264: f8 e7        	b	0x76258 <.text._ZN17compiler_builtins3mem6memcpy17hecf398c62bf07f47E+0x78> @ imm = #-16
+   76266: bd e8 00 07  	pop.w	{r8, r9, r10}
+   7626a: f0 bd        	pop	{r4, r5, r6, r7, pc}
+
+Disassembly of section .text._ZN17compiler_builtins3mem6memset17h3124d2e9edf2e270E:
+
+0007626c <.text._ZN17compiler_builtins3mem6memset17h3124d2e9edf2e270E>:
+   7626c: f0 b5        	push	{r4, r5, r6, r7, lr}
+   7626e: 03 af        	add	r7, sp, #12
+   76270: 4d f8 04 bd  	str	r11, [sp, #-4]!
+   76274: 0f 2a        	cmp	r2, #15
+   76276: 0a d9        	bls	0x7628e <.text._ZN17compiler_builtins3mem6memset17h3124d2e9edf2e270E+0x22> @ imm = #20
+   76278: 43 42        	rsbs	r3, r0, #0
+   7627a: 04 46        	mov	r4, r0
+   7627c: 03 f0 03 0c  	and	r12, r3, #3
+   76280: 00 eb 0c 03  	add.w	r3, r0, r12
+   76284: 9c 42        	cmp	r4, r3
+   76286: 04 d2        	bhs	0x76292 <.text._ZN17compiler_builtins3mem6memset17h3124d2e9edf2e270E+0x26> @ imm = #8
+   76288: 04 f8 01 1b  	strb	r1, [r4], #1
+   7628c: fa e7        	b	0x76284 <.text._ZN17compiler_builtins3mem6memset17h3124d2e9edf2e270E+0x18> @ imm = #-12
+   7628e: 05 46        	mov	r5, r0
+   76290: 15 e0        	b	0x762be <.text._ZN17compiler_builtins3mem6memset17h3124d2e9edf2e270E+0x52> @ imm = #42
+   76292: cc b2        	uxtb	r4, r1
+   76294: 08 26        	movs	r6, #8
+   76296: 20 2e        	cmp	r6, #32
+   76298: 06 d2        	bhs	0x762a8 <.text._ZN17compiler_builtins3mem6memset17h3124d2e9edf2e270E+0x3c> @ imm = #12
+   7629a: 06 f0 18 05  	and	r5, r6, #24
+   7629e: 76 00        	lsls	r6, r6, #1
+   762a0: 04 fa 05 f5  	lsl.w	r5, r4, r5
+   762a4: 2c 43        	orrs	r4, r5
+   762a6: f6 e7        	b	0x76296 <.text._ZN17compiler_builtins3mem6memset17h3124d2e9edf2e270E+0x2a> @ imm = #-20
+   762a8: a2 eb 0c 02  	sub.w	r2, r2, r12
+   762ac: 22 f0 03 05  	bic	r5, r2, #3
+   762b0: 1d 44        	add	r5, r3
+   762b2: ab 42        	cmp	r3, r5
+   762b4: 01 d2        	bhs	0x762ba <.text._ZN17compiler_builtins3mem6memset17h3124d2e9edf2e270E+0x4e> @ imm = #2
+   762b6: 10 c3        	stm	r3!, {r4}
+   762b8: fb e7        	b	0x762b2 <.text._ZN17compiler_builtins3mem6memset17h3124d2e9edf2e270E+0x46> @ imm = #-10
+   762ba: 02 f0 03 02  	and	r2, r2, #3
+   762be: 2a 44        	add	r2, r5
+   762c0: 95 42        	cmp	r5, r2
+   762c2: 02 d2        	bhs	0x762ca <.text._ZN17compiler_builtins3mem6memset17h3124d2e9edf2e270E+0x5e> @ imm = #4
+   762c4: 05 f8 01 1b  	strb	r1, [r5], #1
+   762c8: fa e7        	b	0x762c0 <.text._ZN17compiler_builtins3mem6memset17h3124d2e9edf2e270E+0x54> @ imm = #-12
+   762ca: 00 f0 0e b8  	b.w	0x762ea                 @ imm = #28
+
+Disassembly of section .text._ZN17compiler_builtins3arm14__aeabi_memcpy17h7f9172b23ace45c4E:
+
+000762ce <.text._ZN17compiler_builtins3arm14__aeabi_memcpy17h7f9172b23ace45c4E>:
+   762ce: ff f7 87 bf  	b.w	0x761e0 <.text._ZN17compiler_builtins3mem6memcpy17hecf398c62bf07f47E> @ imm = #-242
+
+Disassembly of section .text.__aeabi_memcpy:
+
+000762d2 <.text.__aeabi_memcpy>:
+   762d2: ff f7 fc bf  	b.w	0x762ce <.text._ZN17compiler_builtins3arm14__aeabi_memcpy17h7f9172b23ace45c4E> @ imm = #-8
+
+Disassembly of section .text._ZN17compiler_builtins3arm14__aeabi_memset17hb32c9771dde32622E:
+
+000762d6 <.text._ZN17compiler_builtins3arm14__aeabi_memset17hb32c9771dde32622E>:
+   762d6: 0b 46        	mov	r3, r1
+   762d8: 11 46        	mov	r1, r2
+   762da: 1a 46        	mov	r2, r3
+   762dc: ff f7 c6 bf  	b.w	0x7626c <.text._ZN17compiler_builtins3mem6memset17h3124d2e9edf2e270E> @ imm = #-116
+
+Disassembly of section .text._ZN17compiler_builtins3arm14__aeabi_memclr17h22e393ad5302094fE:
+
+000762e0 <.text._ZN17compiler_builtins3arm14__aeabi_memclr17h22e393ad5302094fE>:
+   762e0: 00 22        	movs	r2, #0
+   762e2: ff f7 f8 bf  	b.w	0x762d6 <.text._ZN17compiler_builtins3arm14__aeabi_memset17hb32c9771dde32622E> @ imm = #-16
+
+Disassembly of section .text.__aeabi_memclr:
+
+000762e6 <.text.__aeabi_memclr>:
+   762e6: ff f7 fb bf  	b.w	0x762e0 <.text._ZN17compiler_builtins3arm14__aeabi_memclr17h22e393ad5302094fE> @ imm = #-10
+
+Disassembly of section .text.OUTLINED_FUNCTION_55:
+
+000762ea <.text.OUTLINED_FUNCTION_55>:
+   762ea: 5d f8 04 bb  	ldr	r11, [sp], #4
+   762ee: f0 bd        	pop	{r4, r5, r6, r7, pc}
+
+Disassembly of section .text.OUTLINED_FUNCTION_56:
+
+000762f0 <.text.OUTLINED_FUNCTION_56>:
+   762f0: 43 42        	rsbs	r3, r0, #0
+   762f2: 06 46        	mov	r6, r0
+   762f4: 03 f0 03 08  	and	r8, r3, #3
+   762f8: 0b 46        	mov	r3, r1
+   762fa: 00 eb 08 04  	add.w	r4, r0, r8
+   762fe: 70 47        	bx	lr

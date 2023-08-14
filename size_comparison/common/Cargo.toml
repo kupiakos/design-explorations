@@ -1,0 +1,6 @@
+[package]
+name = "common"
+version = "0.1.0"
+authors = ["Alyssa Haroldsen <kupiakos@gmail.com>"]
+edition = "2018"
+publish = false

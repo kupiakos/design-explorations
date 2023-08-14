@@ -24,7 +24,7 @@ static WAKER: TockStatic<Cell<Option<core::task::Waker>>> = TockStatic::new(Cell
 pub fn start() {
     crate::syscalls::command(DRIVER_NUM, ENABLE_OUTPUT, LED_PIN, 0);
     crate::syscalls::command(DRIVER_NUM, ENABLE_INPUT, BUTTON_PIN, 0);
-    crate::syscalls::subscribe(DRIVER_NUM, PIN_CALLBACK, interrupt, &());
+    crate::syscalls::subscribe(DRIVER_NUM, PIN_CALLBACK, interrupt, Some(&()));
     crate::syscalls::command(DRIVER_NUM, CONFIG_INTERRUPTS, BUTTON_PIN, EITHER_EDGE);
 }
 
@@ -62,7 +62,7 @@ impl core::future::Future for ButtonFuture {
     }
 }
 
-extern "C" fn interrupt(_: usize, value: usize, _: usize, _: &()) {
+extern "C" fn interrupt(_: usize, value: usize, _: usize, _: Option<&()>) {
     BUTTON_VALUE.set(value != 0);
     if let Some(waker) = WAKER.take() {
         waker.wake();

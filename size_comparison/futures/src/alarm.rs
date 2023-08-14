@@ -25,7 +25,7 @@ static CUR_TIME: TockStatic<Cell<u64>> = TockStatic::new(Cell::new(0));
 
 pub fn init() {
     PERIOD.set((PERIOD_MS * command(ALARM, GET_FREQ, 0, 0) as u64 / 1000) as usize);
-    subscribe(ALARM, ALARM_NOTIFICATIONS, interrupt, &());
+    subscribe(ALARM, ALARM_NOTIFICATIONS, interrupt, Some(&()));
     set_delay();
 }
 
@@ -52,7 +52,7 @@ impl core::future::Future for AlarmFuture {
     }
 }
 
-extern "C" fn interrupt(_: usize, _: usize, _: usize, _: &()) {
+extern "C" fn interrupt(_: usize, _: usize, _: usize, _: Option<&()>) {
     CUR_TIME.set(CUR_TIME.get() + PERIOD.get() as u64);
     set_delay();
     if let Some(waker) = WAKER.take() {

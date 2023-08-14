@@ -1,13 +1,12 @@
 #[panic_handler]
 fn panic_handler(_: &core::panic::PanicInfo) -> ! {
-    loop {
-        crate::syscalls::yieldk();
-    }
+    unsafe { core::arch::asm!("udf", options(noreturn)) }
 }
 
 #[lang = "start"]
-fn start<T>(main: fn() -> (), _: isize, _: *const *const u8) {
+fn start<T>(main: fn() -> T, _: isize, _: *const *const u8, _: u8) -> isize {
     main();
+    0
 }
 
 #[lang = "termination"]

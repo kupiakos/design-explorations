@@ -3,14 +3,14 @@
 //! syscall drivers, so these are all just GPIO calls.
 
 #![no_std]
-#![feature(asm,lang_items,naked_functions)]
+#![allow(internal_features)]  // TODO
+#![feature(lang_items,naked_functions)]
+
+use common::*;
 
 mod alarm;
 mod app;
-mod entry_point;
 mod gpio;
-mod lang_items;
-mod syscalls;
 mod tock_static;
 
 fn main() {

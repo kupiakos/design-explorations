@@ -6,6 +6,7 @@ panic = "abort"
 
 [workspace]
 members = [
+	"common",
 	"futures",
 	"futures-noinline",
 	"no_futures",

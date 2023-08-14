@@ -1,0 +1,19 @@
+[build]
+target = "thumbv7m-none-eabi"
+
+[profile.release]
+opt-level = "z" 
+lto = true
+panic = "abort"
+strip = "symbols"
+# codegen-units = 1
+
+[target.thumbv7m-none-eabi]
+linker = "rust-lld"
+rustflags = ["-C", "link-arg=-T./layout.ld",
+             "-C", "relocation-model=static",
+             "-C", "linker-flavor=ld.lld",
+            # currently makes no difference
+            #  "-C", "lto",
+            #  "-Z", "virtual-function-elimination=yes"
+             ]
